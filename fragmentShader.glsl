@@ -47,8 +47,31 @@ void main() {
     // Grain effect (using noise texture)
     vec4 grain = texture2D(grainTexture, vUv);
 
-    float randomOffset = fract(sin(time * 0.001) * 4.5548)*20.0; // Random value based on time
-    float wave = (sin(time + vUv.x * 25.0 * randomOffset) * 0.7 + 0.5) + (cos(time + vUv.y * 20.0 * randomOffset) * 0.5 + 0.5);
+    // Configuração para número de ondas
+    float maxOffset = 2.0;  // Valor máximo de randomOffset
+    float minOffset = 1.0;   // Valor mínimo de randomOffset
+    float cycleTime = 50.0;   // Duração de um ciclo completo (em segundos)
+
+    // Cria um padrão triangular para randomOffset
+    float phase = mod(time / cycleTime, 1.0);  // Tempo normalizado para [0, 1]
+    float triWave = abs(2.0 * phase - 1.0);   // Função triangular [0, 1, 0]
+    float randomOffset = mix(minOffset, maxOffset, triWave);  // Interpolação
+
+    // Ângulo de rotação baseado no tempo
+    float angle = triWave * 0.5; // A velocidade da rotação depende de 'time'
+
+    // Calculando a matriz de rotação
+    float cosAngle = cos(angle);
+    float sinAngle = sin(angle);
+
+    // Coordenadas rotacionadas
+    float rotatedX = vUv.x * cosAngle - vUv.y * sinAngle;
+    float rotatedY = vUv.x * sinAngle + vUv.y * cosAngle;
+
+    // Usando as coordenadas rotacionadas para o cálculo da onda
+    float wave = (sin(time + rotatedX * 35.0 * randomOffset) * 0.7 + 0.5) 
+            + (cos(time + rotatedY * 20.0 * randomOffset) * 0.5 + 0.5);
+
     vec3 finalColor = mix(grain.rgb, color, wave);  // Mix grain and color based on wave
     finalColor += n * 0.2;  // Add noise to color
 
