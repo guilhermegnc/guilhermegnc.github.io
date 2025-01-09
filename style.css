@@ -9,10 +9,10 @@ body, html {
 
 #myName {
     position: absolute;
-    top: 5%;
-    left: 22%;
+    top: 5vh;
+    left: 25vw;
     transform: translate(-50%, -50%);
-    font-size: 60px;
+    font-size: 5vw;
     font-family: 'Montserrat', sans-serif;
     z-index: 1; /* Garantir que o texto fique na frente do canvas */
 }

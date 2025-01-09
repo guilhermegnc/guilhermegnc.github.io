@@ -42,21 +42,43 @@ void main() {
     st.x *= u_resolution.x / u_resolution.y;
 
     // Generate noise pattern
-    float n = snoise(st * 150.0 + time * 0.05);  // Add time for animation effect
+    float n = snoise(st * 200.0 + time * 0.05);  // Add time for animation effect
 
     // Grain effect (using noise texture)
     vec4 grain = texture2D(grainTexture, vUv);
 
-    float randomOffset = fract(sin(time * 0.001) * 4.5453); // Random value based on time
-    float wave = (sin(time + vUv.x * 25.0 + randomOffset) * 0.5 + 0.5) + (cos(time + vUv.y * 25.0 + randomOffset) * 0.5 + 0.5);
+    float randomOffset = fract(sin(time * 0.001) * 4.5548)*20.0; // Random value based on time
+    float wave = (sin(time + vUv.x * 25.0 * randomOffset) * 0.7 + 0.5) + (cos(time + vUv.y * 20.0 * randomOffset) * 0.5 + 0.5);
     vec3 finalColor = mix(grain.rgb, color, wave);  // Mix grain and color based on wave
     finalColor += n * 0.2;  // Add noise to color
 
-    // Distance-based alpha for smooth edges
-    float distanceToCenter = length(st - vec2(0.5, 0.5)); // Scale the effect
-    float edgeFade = smoothstep(0.35, 1.1, distanceToCenter);
-    // Apply noise to final color without darkening the center
-    finalColor *= (0.6 - edgeFade); // Darken edges by multiplying with inverse fade
+    // Calculate aspect ratio
+    float aspectRatio = u_resolution.x / u_resolution.y;
+
+    // Calculate scaled texture coordinates 
+    vec2 scaledSt = st; 
+    if (aspectRatio > 1.0) { // Wider than tall
+        scaledSt.y *= aspectRatio; 
+    } else { // Taller than wide
+        scaledSt.x /= aspectRatio;
+    }
+
+    // Calculate distance from center
+    vec2 center = vec2(0.5, 0.5);
+    vec2 distanceToCenter = scaledSt - center;
+    float distance = length(distanceToCenter);
+
+    // Determine fade-out radius (adjust this value)
+    float fadeRadius = 0.0001; // Fraction of the longest dimension
+
+    // Calculate normalized distance (0.0 at center, 1.0 at fade-out radius)
+    float normalizedDistance = distance / (max(u_resolution.x, u_resolution.y) * fadeRadius);
+
+    // Calculate smooth edge fade (0.0 at center, 1.0 at edge)
+    float edgeFade = smoothstep(0.7, 14.0, normalizedDistance); 
+
+    // Apply edge fade to final color
+    finalColor *= (0.7-edgeFade); 
 
     // Decrease alpha at the center to create transparency
     float alpha = 1.0 - edgeFade * (0.7 + n * 0.3); // Apply noise to alpha near edges
