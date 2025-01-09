@@ -1,0 +1,27 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    background-color: black;
+    color: white;
+}
+
+#myName {
+    position: absolute;
+    top: 5%;
+    left: 22%;
+    transform: translate(-50%, -50%);
+    font-size: 60px;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 1; /* Garantir que o texto fique na frente do canvas */
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Ensure it's behind the content */
+}
