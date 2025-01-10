@@ -7,11 +7,30 @@ body, html {
     color: white;
 }
 
+#siteContainer {
+    margin: auto;
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+    width: 97vw;
+    height: 97vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 0.1vw solid white; /* Add border around the whole content */
+    box-sizing: border-box;
+    position: absolute;
+    z-index: 1;
+}
+
 #myName {
     position: absolute;
-    top: 5vh;
+    top: 7vh;
     left: 24vw;
     transform: translate(-50%, -50%);
+    margin-bottom: 0;
+    padding-bottom: 0;
     font-size: 5vw;
     font-family: 'Spectral', serif;
     font-weight: 200;
@@ -20,7 +39,7 @@ body, html {
 
 #role {
     position: absolute;
-    top: 18vh;
+    top: 19vh;
     left: 9vw;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -34,6 +53,7 @@ body, html {
     top: 40vh;
     left: 27vw;
     margin-top: 5vw;
+    margin-right: 2vw;
     width: 45vw;
     transform: translate(-50%, -50%);
     z-index: 1;
@@ -44,18 +64,18 @@ body, html {
     z-index: 1;
 }
 
-.knowledgeContainer {
+#canvasContainer {
     position: absolute;
+    right: 2vw;
+    top: 17vh;
+    margin-left: 2vw;
     z-index: 1;
-    right: 5vw;
-    top: 40vh;
-    font-family: 'Spectral', serif;
 }
 
 .contactMessage {
     position: fixed;
-    top: 4vh;
-    right: 5vw;
+    top: 80vh;
+    left: 4.5vw;
     display: flex;
     z-index: 1;
 }
@@ -66,8 +86,8 @@ body, html {
 }
 
 .socialButton img {
-    width: 2vw; /* Adjust the size of the icons */
-    height: 2vw;
+    width: 3vw; /* Adjust the size of the icons */
+    height: 3vw;
     transition: transform 0.3s ease;
 }
 
@@ -75,14 +95,19 @@ body, html {
     transform: scale(1.2); /* Scale the icons on hover */
 }
 
-canvas {
-    position: absolute;
+#threeCanvas {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     z-index: 0; /* Ensure it's behind the content */
+    object-fit: cover;
 }
+
+/**:hover { 
+    outline:1px blue solid;
+}*/
 
 @font-face {
     font-family: 'Quasar';
