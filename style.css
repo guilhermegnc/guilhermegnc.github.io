@@ -10,18 +10,85 @@ body, html {
 #myName {
     position: absolute;
     top: 5vh;
-    left: 25vw;
+    left: 24vw;
     transform: translate(-50%, -50%);
     font-size: 5vw;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Spectral', serif;
+    font-weight: 200;
     z-index: 1; /* Garantir que o texto fique na frente do canvas */
+}
+
+#role {
+    position: absolute;
+    top: 18vh;
+    left: 9vw;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-size: 2vw;
+    font-family: 'Spectral', serif;
+    font-weight: 200;
+}
+
+.aboutSection {
+    position: absolute;
+    top: 40vh;
+    left: 27vw;
+    margin-top: 5vw;
+    width: 45vw;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    font-size: 1.1vw;
+    text-align: justify;
+    font-family: 'Spectral', serif;
+    font-weight: 400;
+    z-index: 1;
+}
+
+.knowledgeContainer {
+    position: absolute;
+    z-index: 1;
+    right: 5vw;
+    top: 40vh;
+    font-family: 'Spectral', serif;
+}
+
+.contactMessage {
+    position: fixed;
+    top: 4vh;
+    right: 5vw;
+    display: flex;
+    z-index: 1;
+}
+
+.socialButtons {
+    display: flex;
+    gap: 1vw;
+}
+
+.socialButton img {
+    width: 2vw; /* Adjust the size of the icons */
+    height: 2vw;
+    transition: transform 0.3s ease;
+}
+
+.socialButton img:hover {
+    transform: scale(1.2); /* Scale the icons on hover */
 }
 
 canvas {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     z-index: 0; /* Ensure it's behind the content */
+}
+
+@font-face {
+    font-family: 'Quasar';
+    src: url('font/QuasarRegular.woff2') format('woff2'),
+        url('font/QuasarRegular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }

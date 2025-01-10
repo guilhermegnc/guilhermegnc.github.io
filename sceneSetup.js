@@ -17,7 +17,7 @@ function setupScene(vertexShader, fragmentShader) {
 
     // Grain Texture
     const textureLoader = new THREE.TextureLoader();
-    const grainTexture = textureLoader.load('gray.png'); // Replace with your grain image path
+    const grainTexture = textureLoader.load('images/gray.png'); // Replace with your grain image path
 
     // Plane with grain shader
     const planeGeometry = new THREE.PlaneGeometry(2, 2);
