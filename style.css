@@ -12,7 +12,7 @@ body, html {
 }
 
 #siteContainer {
-    width: 97vw;
+    width: 98.5vw;
     height: 97vh;
     display: flex;
     flex-direction: row;
@@ -197,9 +197,9 @@ body, html {
 
 }
 
-*:hover { 
+/**:hover { 
     outline:1px blue solid;
-}
+}*/
 
 @font-face {
     font-family: 'Quasar';

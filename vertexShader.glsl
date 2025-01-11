@@ -1,6 +1,4 @@
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
 varying vec2 vUv;
 // Add Perlin noise to the vertex positions in the vertex shader
