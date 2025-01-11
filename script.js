@@ -36,5 +36,12 @@ function resizeCanvas() {
 // Initial resize
 resizeCanvas();
 
+// Debounced resize function to avoid excessive calculations
+let resizeTimeout;
+function debounceResize() {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(resizeCanvas, 100); // 100ms delay after resize stops
+}
+
 // Update canvas size when the window is resized
-window.addEventListener('resize', resizeCanvas);
+window.addEventListener('resize', debounceResize);

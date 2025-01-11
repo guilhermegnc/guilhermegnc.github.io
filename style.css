@@ -5,79 +5,100 @@ body, html {
     overflow: hidden;
     background-color: black;
     color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 #siteContainer {
-    margin: auto;
-    top:50%;
-    left:50%;
-    transform: translate(-50%, -50%);
     width: 97vw;
     height: 97vh;
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    flex-direction: row;
+    align-items:flex-start;
+    justify-content: flex-start;
     border: 0.1vw solid white; /* Add border around the whole content */
     box-sizing: border-box;
-    position: absolute;
     z-index: 1;
+    margin: 0;
 }
 
-#myName {
-    position: absolute;
-    top: 7vh;
-    left: 24vw;
-    transform: translate(-50%, -50%);
+#leftContainer{
+    width:48.5vw;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content: center;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+#knowledgeContainer{
+    width:48.5vw;
+    height: 97vh;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+}
+
+#siteHeader {
+    position: relative;
+    margin-left: 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     margin-bottom: 0;
     padding-bottom: 0;
+    gap: 2vh;
+    position: relative;
+    margin-bottom: auto;
+}
+
+#siteHeader h1{ 
     font-size: 5vw;
     font-family: 'Spectral', serif;
     font-weight: 200;
-    z-index: 1; /* Garantir que o texto fique na frente do canvas */
+    padding-left: s0;
+    margin-bottom: 0;  /* Remove any bottom margin */
+    line-height: 1;  /* Control line height */
 }
 
-#role {
-    position: absolute;
-    top: 19vh;
-    left: 9vw;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+#siteHeader p{
     font-size: 2vw;
     font-family: 'Spectral', serif;
     font-weight: 200;
+    margin-top: 0;  /* Remove any top margin */
+    line-height: 1;  /* Control line height */
+    padding-left: 0;
+    margin-bottom: 4vh;
 }
 
 .aboutSection {
-    position: absolute;
-    top: 40vh;
-    left: 27vw;
-    margin-top: 5vw;
-    margin-right: 2vw;
+    margin-left: 3vw;
     width: 45vw;
-    transform: translate(-50%, -50%);
-    z-index: 1;
+    margin-bottom: auto;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.aboutMe {
     font-size: 1.1vw;
     text-align: justify;
     font-family: 'Spectral', serif;
     font-weight: 400;
-    z-index: 1;
-}
-
-#canvasContainer {
-    position: absolute;
-    right: 2vw;
-    top: 17vh;
-    margin-left: 2vw;
-    z-index: 1;
 }
 
 .contactMessage {
-    position: fixed;
-    top: 80vh;
-    left: 4.5vw;
+    bottom: 60vh;
+    left: 5vw;
     display: flex;
-    z-index: 1;
+    flex-direction: column;
+    position: fixed;
 }
 
 .socialButtons {
@@ -95,6 +116,22 @@ body, html {
     transform: scale(1.2); /* Scale the icons on hover */
 }
 
+#canvasContainer {
+    position: relative;
+    margin-top: 17vh;
+    margin-left: 5vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#myCanvas {
+    width: 100%; /* Garantir que o canvas se ajuste ao espaço disponível */
+    height: auto;
+    max-width: 100%; /* Impede que o canvas ultrapasse o limite do container */
+    max-height: 100%; /* Impede que o canvas ultrapasse o limite do container */
+}
+
 #threeCanvas {
     position: fixed;
     top: 0;
@@ -105,9 +142,64 @@ body, html {
     object-fit: cover;
 }
 
-/**:hover { 
+/* Quando a altura for maior que a largura (modo retrato), muda para flex-direction: column */
+@media (orientation: portrait) {
+    #siteContainer {
+        flex-direction: column; /* Alinha os itens verticalmente */
+        height: 100vh; /* Garante que o site ocupe toda a altura */
+    }
+
+    #leftContainer {
+        width: 100%; /* Em modo retrato, os containers ocupam a largura total */
+        height: 40%; /* Ajusta a altura automaticamente */
+        justify-content: center; /* Centraliza os itens verticalmente */
+        align-items: center; /* Centraliza os itens horizontalmente */
+    }
+
+    #knowledgeContainer {
+        width: 100%; /* Em modo retrato, os containers ocupam a largura total */
+        height: 52%; /* Ajusta a altura automaticamente */
+        justify-content: center; /* Centraliza os itens verticalmente */
+        align-items: center; /* Centraliza os itens horizontalmente */
+    }
+
+    #siteHeader p {
+        text-align: center;
+        line-height: 3;
+        padding-bottom: 0;
+    }
+
+    /* Garantir que o canvas ocupe a tela inteira */
+    #canvasContainer {
+        position: relative; /* Garante que o canvas será posicionado corretamente */
+        width: 100%;
+        height: 100%;
+        overflow: hidden; /* Garante que o conteúdo não ultrapasse as bordas do contêiner */
+        margin: 0;
+    }
+
+    #myCanvas {
+        position: absolute;/*position: absolute;/*position: absolute; /* Coloca o canvas em uma posição fixa */
+        top: 0; /* Fixa no topo */
+        left: 0; /* Fixa à esquerda */
+        width: 100vw; /* Faz o canvas ocupar toda a largura */
+        height: 100vh; /* Faz o canvas ocupar toda a altura */
+        z-index: 0; /* Garante que o canvas fique atrás do contactMessage */
+        object-fit: cover; /* Ajusta o canvas para cobrir a tela sem distorcer */
+    }
+
+    .contactMessage{
+        bottom: 2%;
+        left:50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+    }
+
+}
+
+*:hover { 
     outline:1px blue solid;
-}*/
+}
 
 @font-face {
     font-family: 'Quasar';
