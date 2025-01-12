@@ -71,7 +71,7 @@ body, html {
     font-weight: 200;
     margin-top: 0;  /* Remove any top margin */
     line-height: 1;  /* Control line height */
-    padding-left: 0;
+    padding-left: 0.5vw;
     margin-bottom: 4vh;
 }
 
@@ -91,11 +91,13 @@ body, html {
     text-align: justify;
     font-family: 'Spectral', serif;
     font-weight: 400;
+    padding: 1vw;
+    background-color: rgba(0,0,0,0.5);
 }
 
 .contactMessage {
     bottom: 60vh;
-    left: 5vw;
+    left: 4.5vw;
     display: flex;
     flex-direction: column;
     position: fixed;
