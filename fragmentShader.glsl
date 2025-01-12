@@ -23,7 +23,7 @@ vec3 permute(vec3 x) {
     return mod289(((x * 34.0) + 10.0) * x);
 }
 float snoise(vec2 v) {
-    const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+    const vec4 C = vec4(0.2, 0.36, -0.5, 0.024);
     vec2 i = floor(v + dot(v, C.yy));
     vec2 x0 = v - i + dot(i, C.xx);
     vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
@@ -64,6 +64,8 @@ void main() {
     vec3 grainColor = texture2D(grainTex, mod(p * param1 * 5.0, 1024.0) / 1024.0).rgb;
     float blurAlpha = texture2D(blurTex, uv).a;
 
+    if (blurAlpha < 0.1) discard;
+
     // Grains
     float gr = pow(grainColor.r * 1.0, 1.5) + 0.5 * (1.0 - blurAlpha);
     float gg = grainColor.g;
@@ -76,8 +78,10 @@ void main() {
     float nx = uv.x * ndx + ax;
     float ny = uv.y * ndy + ay;
     float n = pattern(vec2(nx, ny));
-    n = pow(n * 1.05, 5.0);
-    n = smoothstep(0.6, 1.0, n);
+
+    float n2 = n * 1.05;
+    n = n2 * n2 * n2 * n2 * n2 * n2; // 6 multiplicações
+    n = smoothstep(0.4, 1.0, n); //n = clamp((n - 0.5) * 2.0, 0.0, 1.0);
 
     vec3 front = vec3(0.5);
     vec3 result = mix(back, front, n);

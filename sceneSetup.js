@@ -24,13 +24,13 @@ function setupScene(vertexShader, fragmentShader) {
     const renderer = new THREE.WebGLRenderer({
         antialias: false,
         powerPreference: "high-performance",
-        alpha: true
+        alpha: false
     });
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.id = "threeCanvas";
     document.body.appendChild(renderer.domElement);
@@ -39,7 +39,7 @@ function setupScene(vertexShader, fragmentShader) {
     const textureLoader = new THREE.TextureLoader();
     
     // Textura do grain
-    const grainTexture = textureLoader.load('/images/perlin-noise.png', 
+    const grainTexture = textureLoader.load('/images/grain.jpg', 
         (texture) => {
             texture.minFilter = THREE.LinearFilter;
             texture.magFilter = THREE.LinearFilter;
@@ -58,6 +58,7 @@ function setupScene(vertexShader, fragmentShader) {
 
     // Material atualizado com os novos uniforms
     const sphereMaterial = new THREE.ShaderMaterial({
+        side: THREE.FrontSide,
         vertexShader: vertexShader,
         fragmentShader: fragmentShader,
         uniforms: {
@@ -66,30 +67,25 @@ function setupScene(vertexShader, fragmentShader) {
             grainTex: { value: grainTexture },
             blurTex: { value: blurTexture },
             back: { value: new THREE.Color(0x000000) },
-            param1: { value: 5.0 }, // Controla a escala do grain
-            param2: { value: .4 }, // Controla a intensidade do deslocamento
-            param3: { value: 0.8 }  // Controla a escala do noise
+            param1: { value: .4 }, // Controla a escala do grain
+            param2: { value: .2 }, // Controla a intensidade do deslocamento
+            param3: { value: .3 }  // Controla a escala do noise
         },
         transparent: true // Habilita transparência para usar o blurAlpha
     });
 
-    const sphereGeometry = new THREE.SphereGeometry(3.5, 32, 32);
+    const sphereGeometry = new THREE.SphereGeometry(3.5, 20, 20);
     const sphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+    sphere.frustumCulled = true;
     scene.add(sphere);
 
-    camera.position.z = 4;
-    sphere.position.x = -2;
+    const lod = new THREE.LOD();
+    lod.addLevel(new THREE.SphereGeometry(3.5, 20, 20), 0); // High detail
+    lod.addLevel(new THREE.SphereGeometry(3.5, 8, 8), 10);  // Low detail at distance
+    scene.add(lod);
 
-    // Handler de redimensionamento
-    const resizeObserver = new ResizeObserver(() => {
-        const width = window.innerWidth;
-        const height = window.innerHeight;
-    
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-    });
-    resizeObserver.observe(document.body);
+    camera.position.z = 4;
+    sphere.position.x = -3;
 
     // Loop de animação atualizado
     let previousTime = 0;
@@ -106,9 +102,28 @@ function setupScene(vertexShader, fragmentShader) {
 
     animate(0);
 
+    // Função debounce
+    function debounce(func, wait) {
+        let timeout;
+        return (...args) => {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => func.apply(this, args), wait);
+        };
+    }
+
+    const resizeHandler = debounce(() => {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        renderer.setSize(width, height);
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
+    }, 200); // 200ms de debounce
+
+    window.addEventListener('resize', resizeHandler);
+
     return {
         cleanup: () => {
-            resizeObserver.disconnect();
+            window.removeEventListener('resize', resizeHandler);
             grainTexture.dispose();
             blurTexture.dispose();
             sphereGeometry.dispose();
