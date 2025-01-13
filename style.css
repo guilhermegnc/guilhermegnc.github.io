@@ -54,11 +54,11 @@ body, html {
     gap: 2vh;
     position: relative;
     margin-bottom: auto;
+    font-family: 'futura-nd-light-scosf';
 }
 
 #siteHeader h1{ 
     font-size: 5vw;
-    font-family: 'Spectral', serif;
     font-weight: 200;
     padding-left: s0;
     margin-bottom: 0;  /* Remove any bottom margin */
@@ -67,40 +67,37 @@ body, html {
 
 #siteHeader p{
     font-size: 2vw;
-    font-family: 'Spectral', serif;
     font-weight: 200;
     margin-top: 0;  /* Remove any top margin */
     line-height: 1;  /* Control line height */
     padding-left: 0.5vw;
-    margin-bottom: 4vh;
+    margin-bottom: 1vh;
 }
 
 .aboutSection {
-    margin-left: 3vw;
+    margin-left: 2vw;
     width: 45vw;
     margin-bottom: auto;
     height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
 }
 
 .aboutMe {
-    font-size: 1.1vw;
+    font-size: 1.3vw;
     text-align: justify;
-    font-family: 'Spectral', serif;
+    font-family: "Nohemi-Light";
     font-weight: 400;
     padding: 1vw;
     background-color: rgba(0,0,0,0.5);
 }
 
 .contactMessage {
-    bottom: 60vh;
-    left: 4.5vw;
     display: flex;
     flex-direction: column;
-    position: fixed;
+    margin-bottom: auto;
+    margin-left: 3vw;
 }
 
 .socialButtons {
@@ -148,7 +145,8 @@ body, html {
 @media (orientation: portrait) {
     #siteContainer {
         flex-direction: column; /* Alinha os itens verticalmente */
-        height: 100vh; /* Garante que o site ocupe toda a altura */
+        width: 98%;
+        height: 99%; /* Garante que o site ocupe toda a altura */
     }
 
     #leftContainer {
@@ -156,19 +154,42 @@ body, html {
         height: 40%; /* Ajusta a altura automaticamente */
         justify-content: center; /* Centraliza os itens verticalmente */
         align-items: center; /* Centraliza os itens horizontalmente */
+        margin-bottom: 3vh;
     }
 
     #knowledgeContainer {
         width: 100%; /* Em modo retrato, os containers ocupam a largura total */
-        height: 52%; /* Ajusta a altura automaticamente */
+        height: 40%; /* Ajusta a altura automaticamente */
         justify-content: center; /* Centraliza os itens verticalmente */
         align-items: center; /* Centraliza os itens horizontalmente */
     }
 
+    #siteHeader {
+        margin-top: 2vh;
+    }
+
+    #siteHeader h1{ 
+        font-size: 8vw;
+        line-height: 0;  /* Control line height */
+        margin-bottom: 0;
+    }
+
     #siteHeader p {
+        margin-top: 0;
+        font-size: 5vw;
         text-align: center;
         line-height: 3;
         padding-bottom: 0;
+    }
+
+    .aboutSection{
+        width: 90%;
+        align-items: flex-start;
+        
+    }
+
+    .aboutMe {
+        font-size: 3.5vw;
     }
 
     /* Garantir que o canvas ocupe a tela inteira */
@@ -194,20 +215,33 @@ body, html {
         bottom: 2%;
         left:50%;
         transform: translate(-50%, -50%);
+        position: fixed;
         z-index: 1;
+    }
+
+    .socialButtons{
+        gap: 5vw;
+    }
+
+    .socialButton img {
+        width: 10vw; /* Adjust the size of the icons */
+        height: 10vw;
     }
 
 }
 
-/**:hover { 
+*:hover { 
     outline:1px blue solid;
-}*/
+}
 
 @font-face {
-    font-family: 'Quasar';
-    src: url('font/QuasarRegular.woff2') format('woff2'),
-        url('font/QuasarRegular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+    font-family: 'Nohemi-Light';
+    src: url(/font/Nohemi-Light.woff) format('woff'),
+        url(/font/Nohemi-Light.woff2) format('woff2');
 }
+
+@font-face {
+    font-family: 'futura-nd-light-scosf';
+    src: url(/font/futura-nd-light-scosf.woff) format('woff'),
+         url(/font/futura-nd-light-scosf.woff2) format('woff2');
+  }
