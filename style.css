@@ -85,7 +85,7 @@ body, html {
 }
 
 .aboutMe {
-    font-size: 1.3vw;
+    font-size: 1.1vw;
     text-align: justify;
     font-family: "Nohemi-Light";
     font-weight: 400;
@@ -150,6 +150,7 @@ body, html {
     }
 
     #leftContainer {
+        margin-top: 2vh;
         width: 100%; /* Em modo retrato, os containers ocupam a largura total */
         height: 40%; /* Ajusta a altura automaticamente */
         justify-content: center; /* Centraliza os itens verticalmente */
@@ -176,7 +177,7 @@ body, html {
 
     #siteHeader p {
         margin-top: 0;
-        font-size: 5vw;
+        font-size: 4vw;
         text-align: center;
         line-height: 3;
         padding-bottom: 0;
@@ -189,7 +190,7 @@ body, html {
     }
 
     .aboutMe {
-        font-size: 3.5vw;
+        font-size: 2.8vw;
     }
 
     /* Garantir que o canvas ocupe a tela inteira */
@@ -202,13 +203,11 @@ body, html {
     }
 
     #myCanvas {
-        position: absolute;/*position: absolute;/*position: absolute; /* Coloca o canvas em uma posição fixa */
-        top: 0; /* Fixa no topo */
-        left: 0; /* Fixa à esquerda */
-        width: 100vw; /* Faz o canvas ocupar toda a largura */
-        height: 100vh; /* Faz o canvas ocupar toda a altura */
+        width: 80vw; /* Faz o canvas ocupar toda a largura */
+        height: 80vh; /* Faz o canvas ocupar toda a altura */
         z-index: 0; /* Garante que o canvas fique atrás do contactMessage */
         object-fit: cover; /* Ajusta o canvas para cobrir a tela sem distorcer */
+        align-items: center;
     }
 
     .contactMessage{
@@ -230,9 +229,9 @@ body, html {
 
 }
 
-*:hover { 
+/**:hover { 
     outline:1px blue solid;
-}
+}*/
 
 @font-face {
     font-family: 'Nohemi-Light';
