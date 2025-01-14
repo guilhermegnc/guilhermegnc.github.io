@@ -16,7 +16,7 @@ body, html {
     height: calc(100vh - 4vmin);
     display: flex;
     flex-direction: row;
-    align-items:flex-start;
+    align-items:center;
     justify-content: flex-start;
     border: 0.1vw solid white; /* Add border around the whole content */
     box-sizing: border-box;
@@ -146,6 +146,8 @@ body, html {
 @media (orientation: portrait) {
     #siteContainer {
         flex-direction: column; /* Alinha os itens verticalmente */
+        width: 98%;
+        height: 99%;
     }
 
     #leftContainer {
@@ -165,7 +167,7 @@ body, html {
     }
 
     #siteHeader {
-        margin-top: 2vh;
+        margin-top: 0vh;
     }
 
     #siteHeader h1{ 
